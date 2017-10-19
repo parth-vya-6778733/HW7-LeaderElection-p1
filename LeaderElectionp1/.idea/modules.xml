@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/LeaderElectionp1.iml" filepath="$PROJECT_DIR$/LeaderElectionp1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.sjsu.leaderelection/com.sjsu.leaderelection.iml" filepath="$PROJECT_DIR$/com.sjsu.leaderelection/com.sjsu.leaderelection.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.sjsu.leaderelection/com.sjsu.leaderelection.iml" filepath="$PROJECT_DIR$/com.sjsu.leaderelection/com.sjsu.leaderelection.iml" />
+    </modules>
+  </component>
+</project>
