@@ -29,13 +29,6 @@ public class Main {
         p3.setNext(p4);
         p4.setNext(p0);
 
-//        CircularLinkedList c = new CircularLinkedList();
-//        c.addProcessorAtStart(p0.id);
-//        c.addProcessorAtStart(p1.id);
-//        c.addProcessorAtStart(p2.id);
-//        c.addProcessorAtStart(p3.id);
-//        c.addProcessorAtStart(p4.id);
-
         Executor e0 = new Executor(p0);
         Executor e1 = new Executor(p1);
         Executor e2 = new Executor(p2);
