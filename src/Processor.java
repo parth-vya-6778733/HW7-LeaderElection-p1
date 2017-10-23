@@ -1,3 +1,5 @@
+import javafx.css.StyleableStringProperty;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -14,6 +16,9 @@ public class Processor implements Observer {
     Buffer messageBuffer ;
     Integer id ;
     Integer currentLeader;
+    public Processor next;
+   //private static final Object lockObject = new Object();
+
 
     /**
      * initialize processor's params
@@ -23,8 +28,12 @@ public class Processor implements Observer {
         this.id = id; //This is an invalid value. Since only +ve values are acceptable as processor Ids.
         //Each processor is observing itself;
         messageBuffer.addObserver(this);
-        this.currentLeader = id;
+        this.currentLeader = -1;
 
+    }
+
+    public void setNext(Processor next) {
+        this.next = next;
     }
 
     /**
@@ -48,19 +57,46 @@ public class Processor implements Observer {
     //      Hint: Add switch case for each of the conditions given in receive
     public void update(Observable observable, Object arg) {
             Message m = (Message) arg;
-            if(!m.getTerminate().equals("terminate")) {
-                if (m.getId() == this.id) {
+            System.out.println("This Processor id: " + this.id);
+            System.out.println("Message Received: " + m.getId());
+
+            if (!this.messageBuffer.getMessage().getTerminate().equals("terminate")) {
+
+                if (this.currentLeader < 0) {
+                    this.currentLeader = this.id;
+                    Message init = new Message(this.id);
+                    next.sendMessgeToMyBuffer(init);
+                } else if (m.getId() == this.id) {
+                    System.out.println("Leader has been selected, sending terminate messages.");
+                    Message term = new Message();
+                    term.setTerminate("terminate");
+                    next.sendMessgeToMyBuffer(term);
                     // begin sending terminating message to all nodes
                 } else if (m.getId() > this.id) {
                     this.currentLeader = m.getId();
-
+                    next.sendMessgeToMyBuffer(this.messageBuffer.getMessage());
 
                 } else {
+                    Message myId = new Message();
+                    myId.setId(this.id);
+                    next.sendMessgeToMyBuffer(myId);
+                    
                     // gobble gobble
                 }
-            }
-    }
+            } else if (!(this.id == currentLeader)) {
+                System.out.println("Leader has been selected, sending terminate messages.");
+                Message term = new Message();
+                term.setTerminate("terminate");
+                next.sendMessgeToMyBuffer(term);
+            } else {
+                System.out.println("Terminate Message Received by Leader: " + this.id);
+                System.out.println("Leader is: " + this.currentLeader);
 
+            }
+
+
+
+    }
 
 
 }

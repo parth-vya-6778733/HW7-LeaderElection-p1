@@ -5,9 +5,14 @@ public class  Message {
     private int id;
     private String terminate;
 
+    public Message() {
+        this.terminate = "";
+    }
+
     public Message(int id)
     {
         this.id = id;
+        this.terminate = "";
     }
 
     public int getId() {
